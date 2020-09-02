@@ -64,7 +64,7 @@ def train(net_disc, net_gen, loss, n_epochs, loader, device, opt):
             # Stats
             if i % 50 == 0:
                 print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f'
-                    % (epoch, n_epochs, i, len(loader),
+                    % (epoch+1, n_epochs, i, len(loader),
                         errorD.item(), errorG.item(), D_x, D_g_z1, D_g_z2))
                 G_losses.append(errorG.item())
                 D_losses.append(errorD.item())

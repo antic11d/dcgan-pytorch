@@ -77,8 +77,8 @@ def train(net_disc, net_gen, loss, n_epochs, loader, device, opt):
 
             iters += 1
 
-        torch.save(net_gen.state_dict(), f'{opt.output_folder}/netG_epoch_{epoch}.pth')
-        torch.save(net_disc.state_dict(), f'{opt.output_folder}/netD_epoch_{epoch}.pth')
+        torch.save(net_gen.state_dict(), f'{opt.output_folder}/netG_epoch_{epoch+1}.pth')
+        torch.save(net_disc.state_dict(), f'{opt.output_folder}/netD_epoch_{epoch+1}.pth')
     
     return img_list, G_losses, D_losses
         
@@ -110,9 +110,9 @@ def main():
     current_time = datetime.now().strftime("%H:%M:%S")
     print(f'[{current_time}] Done training!')
 
-    utils.plot_generated_imgs(opt.output_folder, img_list)
-    utils.plot_losses(opt.output_folder, D_losses, G_losses)
-    utils.plot_real_fake(next(iter(loader)), img_list, device)
+    utils.plot_generated_imgs(Path(opt.output_folder), img_list)
+    utils.plot_losses(Path(opt.output_folder), D_losses, G_losses)
+    utils.plot_real_fake(Path(opt.output_folder), next(iter(loader)), img_list, device)
 
 if __name__ == '__main__':
     main()

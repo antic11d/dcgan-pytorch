@@ -3,7 +3,6 @@ import torch.nn as nn
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torch.utils.data
-from os.path import join as join
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,7 +32,8 @@ def plot_generated_imgs(path, fakes):
     fig = plt.figure(figsize=(8,8))
     plt.axis("off")
     ims = [[plt.imshow(np.transpose(i,(1,2,0)), animated=True)] for i in fakes]
-    plt.savefig(join(path, 'imgs.png'))
+    plt.savefig(path / 'imgs.png')
+    plt.close()
 
 def plot_losses(path, D_losses, G_losses):
     plt.figure(figsize=(10,5))
@@ -43,9 +43,10 @@ def plot_losses(path, D_losses, G_losses):
     plt.xlabel("iterations")
     plt.ylabel("Loss")
     plt.legend()
-    plt.savefig(join(path, 'loses.png'))
+    plt.savefig(path / 'loses.png')
+    plt.close()
 
-def plot_real_fake(reals, fakes, device):
+def plot_real_fake(path, reals, fakes, device):
     # Plot the real images
     plt.figure(figsize=(15,15))
     plt.subplot(1,2,1)
@@ -58,8 +59,8 @@ def plot_real_fake(reals, fakes, device):
     plt.axis("off")
     plt.title("Fake Images")
     plt.imshow(np.transpose(fakes[-1],(1,2,0)))
-    plt.show()
-    plt.savefig('real-fake.png')
+    plt.savefig(path / 'real-fake.png')
+    plt.close()
 
 def parse_args():
     parser = argparse.ArgumentParser()
